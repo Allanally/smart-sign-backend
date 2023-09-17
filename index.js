@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const UserModel = require('./models/User');
+const PendingModel = require('./models/Pending');
 const FaultModel = require('./models/Fault');
 const PermissionModel = require('./models/Permission')
 const cookieParser = require('cookie-parser');
@@ -64,7 +64,32 @@ app.post('/permission', (req, res) => {
     });
 });
 
+app.post('/pendings', (req, res) => {
+PendingModel.create(req.body)
+.then(pending => res.json(pending))
+.catch(err => {
+  console.error('Error saving permission:', err);
+      res.status(500).json("Server error");
+})
+})
 
+app.get('/pendings', (req,res) => {
+  PendingModel.find({})
+  .then(pending => res.json(pending))
+      .catch(err => {
+        console.error('Error fetching permissions:', err);
+        res.status(500).json("Server error");
+      });
+})
+
+app.delete('/pendings', (req, res) => {
+  PendingModel.findOneAndDelete(req.body)
+  .then(pending => res.json(pending))
+  .catch(err => {
+    console.error('Error deleting permissions:', err);
+    res.status(500).json("Server error");
+  });
+})
 
 app.listen(1337, () => {
   console.log("Server is running");
