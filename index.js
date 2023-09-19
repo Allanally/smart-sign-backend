@@ -14,7 +14,11 @@ require('dotenv').config();
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["https://smart-sign.vercel.app/"],
+  method: ["GET", "POST"],
+  credentials: true,
+}));
 app.use(cookieParser())
 app.use(authRoutes);
 
