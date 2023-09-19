@@ -31,7 +31,6 @@ module.exports.register = async (req, res, next) => {
        const user = await UserModel.create({name, email, password});
        const token = createToken(user._id);
        res.cookie("jwt",token, {
-           withCredentials: true,
            httpOnly: true,
            maxAge: maxAge * 1000,
           sameSite: 'none',
@@ -52,7 +51,6 @@ module.exports.login = async (req, res, next) => {
    const user = await UserModel.login( email, password);
    const token = createToken(user._id);
    res.cookie("jwt",token, {
-       withCredentials: true,
            httpOnly: true,
            maxAge: maxAge * 1000,
           sameSite: 'none',
