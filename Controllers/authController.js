@@ -3,7 +3,7 @@ const FaultModel = require("../models/Fault");
 const jwt = require("jsonwebtoken");
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
-const maxAge = 1*24*60*60;
+const maxAge = 1 * 24 * 6000 * 60;
 const createToken = (id) => {
   return jwt.sign({id},  "kotana allan super secret key", {
     expiresIn: maxAge
